@@ -1,0 +1,12 @@
+- name: create file555
+  hosts: client01
+  become: yes
+  tasks:
+    - name: check ip
+      debug:
+        msg: "IP address: {{ansible_default_ipv4.address}}. Status: {{ansible_default_ipv4.address == '192.168.0.110'}}"
+    - name: create new file
+      file:
+        path: /root/file555.txt
+        state: touch
+      when: ansible_default_ipv4.address == '192.168.0.110'
